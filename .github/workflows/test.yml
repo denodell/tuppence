@@ -4,16 +4,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run typecheck
-      - run: npm test 2>&1 | tee test-output.log; exit ${PIPESTATUS[0]}
+      # Runs the tests and measures which code they cover.
+      - run: npm run coverage 2>&1 | tee test-output.log; exit ${PIPESTATUS[0]}
         shell: bash
         env:
           CHROME_PATH: /usr/bin/google-chrome
       - if: failure()
         run: node .github/annotate-test-failures.mjs test-output.log
+      # Fails if any line, branch or function in the library isn't covered by a test.
+      - run: npm run coverage:check
