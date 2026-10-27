@@ -77,10 +77,10 @@ for (const lit of ["3", "2"]) {
         "Components: ds-card",
         "Components: Mount",
         "Scheduler: Render",
-        "Upgrade: beta-acme define",
-        "Components: beta-acme connected",
+        "Upgrade: beta-nettle define",
+        "Components: beta-nettle connected",
       ]) {
-        assert.equal(r[key], "Acme", key);
+        assert.equal(r[key], "Nettle", key);
       }
       assert.equal(r["Upgrade: beta-tip define"], "Beta");
       assert.equal(r["Components: beta-tip connected"], "Beta");

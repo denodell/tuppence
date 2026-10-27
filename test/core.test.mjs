@@ -474,27 +474,27 @@ import { assignTrackGroup } from "../dist/index.js";
 
 test("emit can put one bar under its own track group", async () => {
   const { seen, stop } = collect();
-  emit("grouped", performance.now() - 1, performance.now(), { track: "Components", trackGroup: "Acme" });
+  emit("grouped", performance.now() - 1, performance.now(), { track: "Components", trackGroup: "Nettle" });
   emit("default", performance.now() - 1, performance.now(), { track: "Components" });
   await tick();
   stop();
   assert.deepEqual(
     seen.map((e) => [e.name, e.detail.devtools.trackGroup]),
-    [["grouped", "Acme"], ["default", "Web Components · Tuppence"]],
+    [["grouped", "Nettle"], ["default", "Web Components · Tuppence"]],
   );
 });
 
 test("assignTrackGroup checks its arguments", () => {
-  assert.throws(() => assignTrackGroup("acme-", ""), TypeError);
-  assert.throws(() => assignTrackGroup("acme-"), TypeError);
-  assert.throws(() => assignTrackGroup("", "Acme"), TypeError);
-  assert.throws(() => assignTrackGroup(42, "Acme"), TypeError);
+  assert.throws(() => assignTrackGroup("nettle-", ""), TypeError);
+  assert.throws(() => assignTrackGroup("nettle-"), TypeError);
+  assert.throws(() => assignTrackGroup("", "Nettle"), TypeError);
+  assert.throws(() => assignTrackGroup(42, "Nettle"), TypeError);
 });
 
 test("tag prefixes put Stencil elements in their own groups: longest prefix wins, then the latest", async () => {
   const undo = [
-    assignTrackGroup("acme-", "Acme"),
-    assignTrackGroup("ACME-CHART-", "Acme Charts"),
+    assignTrackGroup("nettle-", "Nettle"),
+    assignTrackGroup("NETTLE-CHART-", "Nettle Charts"),
     assignTrackGroup("beta-", "Beta (old)"),
     assignTrackGroup("beta-", "Beta"),
   ];
@@ -502,10 +502,10 @@ test("tag prefixes put Stencil elements in their own groups: longest prefix wins
   const { seen, stop } = collect();
   const unwatch = observeStencilProfile();
   const t = performance.now();
-  for (const tag of ["acme-button", "acme-chart-bar", "beta-menu", "app-shell"]) {
+  for (const tag of ["nettle-button", "nettle-chart-bar", "beta-menu", "app-shell"]) {
     performance.measure(`[Stencil] render() <${tag}>`, { start: t, end: t + 1 });
   }
-  performance.measure("[Stencil] Load module for <acme-button>", { start: t, end: t + 3 });
+  performance.measure("[Stencil] Load module for <nettle-button>", { start: t, end: t + 3 });
   performance.measure("[Stencil] Load module for <beta-menu>", { start: t + 1, end: t + 2 });
   await tick();
   unwatch();
@@ -513,14 +513,14 @@ test("tag prefixes put Stencil elements in their own groups: longest prefix wins
   for (const u of undo) u();
   const rows = seen.map((e) => [e.name.replace(/^​/, ""), e.detail.devtools.track, e.detail.devtools.trackGroup]);
   assert.deepEqual(rows.filter((r) => r[1] === "Components").sort(), [
-    ["acme-button", "Components", "Acme"],
-    ["acme-chart-bar", "Components", "Acme Charts"],
     ["app-shell", "Components", "Web Components · Tuppence"],
     ["beta-menu", "Components", "Beta"],
+    ["nettle-button", "Components", "Nettle"],
+    ["nettle-chart-bar", "Components", "Nettle Charts"],
   ]);
   assert.deepEqual(rows.filter((r) => r[1].startsWith("Loading")).sort(), [
-    ["acme-button", "Loading", "Acme"],
     ["beta-menu", "Loading", "Beta"],
+    ["nettle-button", "Loading", "Nettle"],
   ]);
 });
 
@@ -541,7 +541,7 @@ test("removing a rule puts elements back in the default group, and removing twic
 
 test("the production assignTrackGroup does nothing and returns an undo function", async () => {
   const prod = await import("../dist/production/index.js");
-  const undo = prod.assignTrackGroup("acme-", "Acme");
+  const undo = prod.assignTrackGroup("nettle-", "Nettle");
   assert.equal(typeof undo, "function");
   undo();
 });

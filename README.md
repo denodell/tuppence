@@ -103,22 +103,22 @@ import { LitElement } from "lit";
 import { trackLitUpdates } from "tuppence/lit";
 import { assignTrackGroup } from "tuppence";
 
-export class AcmeElement extends LitElement {
+export class NettleElement extends LitElement {
   constructor() {
     super();
     trackLitUpdates(this);
   }
 }
 
-assignTrackGroup(AcmeElement, "Acme Components");
+assignTrackGroup(NettleElement, "Nettle Components");
 ```
 
-Components that extend `AcmeElement` show up under **Acme Components**, separate from the app's own tracks.
+Components that extend `NettleElement` show up under **Nettle Components**, separate from the app's own tracks.
 
 Or match them by tag prefix:
 
 ```js
-assignTrackGroup("acme-", "Acme Components");
+assignTrackGroup("nettle-", "Nettle Components");
 ```
 
 ## Stencil
