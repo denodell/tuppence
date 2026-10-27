@@ -28,10 +28,10 @@ function App() {
     h(
       "p",
       { className: "lede" },
-      "A React app using a design system built with Lit. Record in the Performance panel, click ",
+      "A React app using a small library of Lit components. Record in the Performance panel, click ",
       h("b", null, "Add to cart"),
       " a few times, then stop. Open the ",
-      h("b", null, "Acme Design System"),
+      h("b", null, "Acme Components"),
       " group: each table render is yellow and marked \"no changes\", because the app passes a new ",
       h("code", null, "columns"),
       " array every time.",

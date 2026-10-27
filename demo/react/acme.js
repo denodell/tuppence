@@ -9,7 +9,7 @@ export class AcmeElement extends LitElement {
   }
 }
 
-assignTrackGroup(AcmeElement, "Acme Design System");
+assignTrackGroup(AcmeElement, "Acme Components");
 
 const work = (ms) => {
   const end = performance.now() + ms;

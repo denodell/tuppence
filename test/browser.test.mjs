@@ -69,7 +69,7 @@ for (const lit of ["3", "2"]) {
       assert.equal(r.withRequestUpdate.same, "items");
     });
 
-    test("design system elements go under their own track group, by base class or tag prefix", { skip }, () => {
+    test("shared components go under their own track group, by base class or tag prefix", { skip }, () => {
       const r = result("trackGroupsByPrefixAndClass");
       for (const key of [
         "Upgrade: ds-card define",
@@ -469,9 +469,9 @@ describe("Vue custom elements (defineCustomElement)", () => {
     assert.deepEqual(errors, [], "page errors");
     const r = results.vueElementsGetElementBars;
     assert.ok(r.ok, r.error);
-    assert.deepEqual(r.value.upgrade, ["vue-counter define", "2", "Vue Design System"]);
+    assert.deepEqual(r.value.upgrade, ["vue-counter define", "2", "Vue Components"]);
     assert.deepEqual(r.value.rendered, ["1:0", "2:0", "3:1"], "Vue renders and handles clicks as usual");
-    assert.deepEqual(r.value.groups, ["Vue Design System"]);
+    assert.deepEqual(r.value.groups, ["Vue Components"]);
     assert.ok(!r.value.tracks.includes("Scheduler"), r.value.tracks.join());
     assert.ok(r.value.tracks.includes("Components"), r.value.tracks.join());
   });
