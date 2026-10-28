@@ -2,21 +2,21 @@ import { LitElement, html, css } from "lit";
 import { trackLitUpdates } from "tuppence/lit";
 import { assignTrackGroup } from "tuppence";
 
-export class AcmeElement extends LitElement {
+export class NettleElement extends LitElement {
   constructor() {
     super();
     trackLitUpdates(this);
   }
 }
 
-assignTrackGroup(AcmeElement, "Acme Design System");
+assignTrackGroup(NettleElement, "Nettle Components");
 
 const work = (ms) => {
   const end = performance.now() + ms;
   while (performance.now() < end) {}
 };
 
-class AcmeTable extends AcmeElement {
+class NettleTable extends NettleElement {
   static properties = {
     columns: { attribute: false },
     rows: { attribute: false },
@@ -39,9 +39,9 @@ class AcmeTable extends AcmeElement {
     </table>`;
   }
 }
-customElements.define("acme-table", AcmeTable);
+customElements.define("nettle-table", NettleTable);
 
-class AcmeBadge extends AcmeElement {
+class NettleBadge extends NettleElement {
   static properties = { count: { type: Number } };
   static styles = css`
     span { display: inline-block; min-width: 1.5em; padding: 2px 8px; border-radius: 999px;
@@ -56,4 +56,4 @@ class AcmeBadge extends AcmeElement {
     return html`<span>${this.count}</span>`;
   }
 }
-customElements.define("acme-badge", AcmeBadge);
+customElements.define("nettle-badge", NettleBadge);

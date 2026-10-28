@@ -888,24 +888,24 @@
     },
 
     async trackGroupsByPrefixAndClass() {
-      class AcmeElement extends LitElement {}
-      const undoClass = assignTrackGroup(AcmeElement, "Acme");
+      class NettleElement extends LitElement {}
+      const undoClass = assignTrackGroup(NettleElement, "Nettle");
       const undoPrefix = assignTrackGroup("beta-", "Beta");
-      class AcmeCard extends AcmeElement {
+      class NettleCard extends NettleElement {
         static properties = { v: { type: Number } };
         constructor() { super(); this.v = 0; trackLitUpdates(this); }
         connectedCallback() { super.connectedCallback(); work(0.3); }
         render() { work(0.3); return html`${this.v}`; }
       }
-      class BetaAcme extends AcmeElement { connectedCallback() { super.connectedCallback(); work(0.3); } }
+      class BetaNettle extends NettleElement { connectedCallback() { super.connectedCallback(); work(0.3); } }
       class BetaTip extends HTMLElement { connectedCallback() { work(0.3); } }
       class AppPage extends HTMLElement { connectedCallback() { work(0.3); } }
-      const tags = ["ds-card", "beta-acme", "beta-tip", "app-page"];
+      const tags = ["ds-card", "beta-nettle", "beta-tip", "app-page"];
       document.body.append(...tags.map((t) => document.createElement(t)));
       const card = document.querySelector("ds-card");
       const got = await collect(async () => {
-        define("ds-card", AcmeCard);
-        define("beta-acme", BetaAcme);
+        define("ds-card", NettleCard);
+        define("beta-nettle", BetaNettle);
         define("beta-tip", BetaTip);
         define("app-page", AppPage);
         await card.updateComplete;

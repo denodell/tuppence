@@ -1,4 +1,4 @@
-import "./acme.js";
+import "./nettle.js";
 import { createElement as h, useState, useMemo } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -24,14 +24,14 @@ function App() {
   return h(
     "main",
     null,
-    h("h1", null, "Acme shop"),
+    h("h1", null, "Online shop"),
     h(
       "p",
       { className: "lede" },
-      "A React app using a design system built with Lit. Record in the Performance panel, click ",
+      "A React app using a small library of Lit components. Record in the Performance panel, click ",
       h("b", null, "Add to cart"),
       " a few times, then stop. Open the ",
-      h("b", null, "Acme Design System"),
+      h("b", null, "Nettle Components"),
       " group: each table render is yellow and marked \"no changes\", because the app passes a new ",
       h("code", null, "columns"),
       " array every time.",
@@ -40,7 +40,7 @@ function App() {
       "div",
       { className: "bar" },
       h("button", { id: "add", onClick: () => setCart((c) => c + 1) }, "Add to cart"),
-      h("span", null, "Cart ", h("acme-badge", { count: cart })),
+      h("span", null, "Cart ", h("nettle-badge", { count: cart })),
       h(
         "label",
         null,
@@ -48,7 +48,7 @@ function App() {
         " Fix it: reuse the columns array",
       ),
     ),
-    h("acme-table", { columns: fixed ? memoColumns : inlineColumns, rows: PRODUCTS }),
+    h("nettle-table", { columns: fixed ? memoColumns : inlineColumns, rows: PRODUCTS }),
   );
 }
 

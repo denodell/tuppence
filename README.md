@@ -26,33 +26,6 @@ Record a profile in the [Performance panel](https://developer.chrome.com/docs/de
 
 Tuppence is a development tool. Production builds use an empty version of the package, so none of it ships to your users. See [Production builds](#production-builds).
 
-## Design systems
-
-If you maintain a design system, you can turn Tuppence on from your base class. Every app that uses your components then sees them in DevTools, in a group of their own:
-
-```js
-import { LitElement } from "lit";
-import { trackLitUpdates } from "tuppence/lit";
-import { assignTrackGroup } from "tuppence";
-
-export class AcmeElement extends LitElement {
-  constructor() {
-    super();
-    trackLitUpdates(this);
-  }
-}
-
-assignTrackGroup(AcmeElement, "Acme Design System");
-```
-
-Components that extend `AcmeElement` show up under **Acme Design System**, separate from the app's own tracks.
-
-Or match them by tag prefix:
-
-```js
-assignTrackGroup("acme-", "Acme Design System");
-```
-
 ## What you see
 
 **Scheduler** shows each update as a row of steps, like React's Scheduler track. The steps follow Lit's [update lifecycle](https://lit.dev/docs/components/lifecycle/):
@@ -121,6 +94,33 @@ An optional third argument sets the bar's `track`, `color`, `tooltip` and the `p
 track("Filter list", () => filterList(input.value), { track: "Search", color: "secondary" });
 ```
 
+## Sharing components with other apps
+
+If you publish components for other apps to use, you can turn Tuppence on from your base class. Every app that uses your components then sees them in DevTools, in a group of their own:
+
+```js
+import { LitElement } from "lit";
+import { trackLitUpdates } from "tuppence/lit";
+import { assignTrackGroup } from "tuppence";
+
+export class NettleElement extends LitElement {
+  constructor() {
+    super();
+    trackLitUpdates(this);
+  }
+}
+
+assignTrackGroup(NettleElement, "Nettle Components");
+```
+
+Components that extend `NettleElement` show up under **Nettle Components**, separate from the app's own tracks.
+
+Or match them by tag prefix:
+
+```js
+assignTrackGroup("nettle-", "Nettle Components");
+```
+
 ## Stencil
 
 Stencil records its own timings in dev builds and in builds made with [`stencil build --profile`](https://stenciljs.com/docs/cli). Call this once at startup to show them on the same tracks:
@@ -133,7 +133,7 @@ observeStencilProfile();
 
 Stencil times rendering and DOM updates together, so each update shows as a single **Render and Commit** bar. A **Loading** track shows the app starting up and each component's code loading.
 
-### Publishing a Stencil design system
+### Publishing Stencil components
 
 A normal `stencil build` leaves Stencil's timings out, so apps using your published package see only the lifecycle bars. You can publish a second build with the timings in, and point development tools at it with the `"development"` [export condition](https://nodejs.org/api/packages.html#conditional-exports):
 
@@ -215,7 +215,7 @@ npm run demo
 
 Open `http://localhost:5173/demo/`, start recording in the Performance panel, click a few buttons, then stop.
 
-`npm run demo:design-system` runs a second demo, a React app using a small Lit design system, at `http://localhost:5174/`.
+`npm run demo:react` runs a second demo, a React app using a small library of Lit components, at `http://localhost:5174/`.
 
 ## Limitations
 
